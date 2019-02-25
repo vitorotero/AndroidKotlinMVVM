@@ -1,9 +1,9 @@
 package br.com.tecapp.personproject.shared.manager
 
-import androidx.databinding.ObservableArrayList
 import br.com.tecapp.personproject.shared.api.Api
 import br.com.tecapp.personproject.shared.api.ApiPhoto
 import br.com.tecapp.personproject.shared.model.Photo
+import io.reactivex.Observable
 
 class PhotoManagerImp : Api(), PhotoManager {
 
@@ -12,7 +12,7 @@ class PhotoManagerImp : Api(), PhotoManager {
     init {
     }
 
-    override fun listPhotos(): ObservableArrayList<Photo> {
+    override fun listPhotos(): Observable<List<Photo>> {
         return apiPhoto.listPhotos()
     }
 

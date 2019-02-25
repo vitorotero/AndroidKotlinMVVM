@@ -3,10 +3,11 @@ package br.com.tecapp.personproject.shared.model
 import com.google.gson.annotations.SerializedName
 
 data class Photo(
-    @SerializedName("") var id: Long,
-    @SerializedName("") var format: String,
-    @SerializedName("") var fileName: String,
-    @SerializedName("") var author: String,
-    @SerializedName("") var authorUrl: String,
-    @SerializedName("") var postUrl: String
+    @SerializedName("id") var id: Long,
+    @SerializedName("format") var format: String,
+    @SerializedName("filename") var fileName: String,
+    @SerializedName("author") var author: String,
+    @SerializedName("author_url") var authorUrl: String,
+    @SerializedName("post_url") var postUrl: String
+
 )

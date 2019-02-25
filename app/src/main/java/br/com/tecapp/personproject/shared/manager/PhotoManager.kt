@@ -1,10 +1,10 @@
 package br.com.tecapp.personproject.shared.manager
 
-import androidx.databinding.ObservableArrayList
 import br.com.tecapp.personproject.shared.model.Photo
+import io.reactivex.Observable
 
 interface PhotoManager {
 
-    fun listPhotos() : ObservableArrayList<Photo>
+    fun listPhotos(): Observable<List<Photo>>
 
 }
