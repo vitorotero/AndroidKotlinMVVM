@@ -1,10 +1,11 @@
-package br.com.tecapp.personproject.ui.viewmodel
+package br.com.tecapp.personproject.ui.photos.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.tecapp.personproject.shared.manager.PhotoManager
 import br.com.tecapp.personproject.shared.manager.PhotoManagerImp
+import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

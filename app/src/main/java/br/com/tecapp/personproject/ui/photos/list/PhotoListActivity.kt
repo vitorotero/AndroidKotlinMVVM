@@ -15,7 +15,6 @@ import br.com.tecapp.personproject.R
 import br.com.tecapp.personproject.databinding.PhotoListScreenBinding
 import br.com.tecapp.personproject.ui.photos.list.adapter.PhotoAdapter
 import br.com.tecapp.personproject.ui.photos.list.adapter.PhotoAdapterListenner
-import br.com.tecapp.personproject.ui.viewmodel.PhotosViewModel
 import br.com.tecapp.personproject.utils.TransictionsUtils
 import kotlinx.android.synthetic.main.photo_list_screen.*
 

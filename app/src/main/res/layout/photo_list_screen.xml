@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="br.com.tecapp.personproject.ui.viewmodel.PhotosViewModel" />
+            type="br.com.tecapp.personproject.ui.photos.list.PhotosViewModel" />
 
         <import type="android.view.View" />
     </data>
