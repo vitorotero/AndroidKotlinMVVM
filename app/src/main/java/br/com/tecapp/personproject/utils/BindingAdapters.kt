@@ -11,7 +11,10 @@ class BindingAdapters {
         @BindingAdapter("android:loadImageWithGlide")
         @JvmStatic
         fun loadImage(view: AppCompatImageView, url: String) {
-            Glide.with(view).load(url).into(view)
+            Glide.with(view)
+                .load(url)
+                .centerCrop()
+                .into(view)
         }
 
     }
