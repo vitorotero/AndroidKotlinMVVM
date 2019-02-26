@@ -1,6 +1,7 @@
 package br.com.tecapp.personproject.ui.photos.detail
 
 import android.os.Bundle
+import android.transition.Fade
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -25,6 +26,7 @@ class DetailPhotoActivity : AppCompatActivity() {
         val viewBinding: DetailPhotoScreenBinding = DataBindingUtil.setContentView(this, R.layout.detail_photo_screen)
         viewBinding.viewModel = detailViewModel
 
+        setupAnimation()
         setupBinding()
     }
 
@@ -37,10 +39,13 @@ class DetailPhotoActivity : AppCompatActivity() {
         if (intent.hasExtra(PHOTO_ARGS)) {
             val photoViewModel: PhotoViewModel = intent.getSerializableExtra(PHOTO_ARGS) as PhotoViewModel
             detailViewModel = DetailPhotoViewModel(photoViewModel)
-        } else {
-            DeviceUtils.showShortToas(this, "Algo deu errado")
-            finishAffinity()
         }
+    }
+
+    private fun setupAnimation() {
+        val enterTransition = Fade()
+        enterTransition.duration = 300
+        window.enterTransition = enterTransition
     }
 
     private fun setupBinding() {

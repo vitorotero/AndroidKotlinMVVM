@@ -1,7 +1,9 @@
 package br.com.tecapp.personproject.ui.photos.list
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Pair
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.appcompat.app.AppCompatActivity
@@ -17,8 +19,6 @@ import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
 import br.com.tecapp.personproject.utils.DeviceUtils
 import br.com.tecapp.personproject.utils.TransictionsUtils
 import kotlinx.android.synthetic.main.photo_list_screen.*
-import java.io.Serializable
-
 
 class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
 
@@ -44,13 +44,6 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
         photosViewModel.listPhotos()
     }
 
-    override fun onBackPressed() {
-        TransictionsUtils.unRevealActivity(clContent, revealX, revealY, 0f, 400) {
-            clContent.visibility = View.INVISIBLE
-        }
-        super.onBackPressed()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         photosViewModel.destroy()
@@ -60,10 +53,13 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
         DeviceUtils.openBrowserUrl(this, url)
     }
 
-    override fun openDetail(photoViewModel: PhotoViewModel) {
+    override fun openDetail(imageView: View, textView: View, photoViewModel: PhotoViewModel) {
         val intent = Intent(this, DetailPhotoActivity::class.java)
         intent.putExtra(DetailPhotoActivity.PHOTO_ARGS, photoViewModel)
-        startActivity(intent)
+        val options = ActivityOptions.makeSceneTransitionAnimation(
+            this, Pair.create(imageView, "photoTransition"), Pair.create(textView, "nameAuthorTransition")
+        )
+        startActivity(intent, options.toBundle())
     }
 
     private fun setupTransaction() {

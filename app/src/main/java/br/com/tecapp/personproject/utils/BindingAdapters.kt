@@ -44,6 +44,8 @@ class BindingAdapters {
                             it.visibility = View.GONE
                         }
 
+
+
                         view.setImageDrawable(resource!!)
                         return true
                     }

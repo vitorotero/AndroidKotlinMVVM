@@ -34,7 +34,7 @@ class PhotoAdapter(var photos: List<PhotoViewModel>, private val listenner: Phot
             }
 
             binding.clContent.setOnClickListener {
-                listenner.openDetail(photoViewModel)
+                listenner.openDetail(it, binding.tvAuthor, photoViewModel)
             }
 
             binding.executePendingBindings()
