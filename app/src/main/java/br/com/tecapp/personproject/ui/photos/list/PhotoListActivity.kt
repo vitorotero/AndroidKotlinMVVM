@@ -1,9 +1,6 @@
 package br.com.tecapp.personproject.ui.photos.list
 
-import android.content.ActivityNotFoundException
-import android.content.ComponentName
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
@@ -13,10 +10,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.tecapp.personproject.R
 import br.com.tecapp.personproject.databinding.PhotoListScreenBinding
+import br.com.tecapp.personproject.ui.photos.detail.DetailPhotoActivity
 import br.com.tecapp.personproject.ui.photos.list.adapter.PhotoAdapter
 import br.com.tecapp.personproject.ui.photos.list.adapter.PhotoAdapterListenner
+import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
+import br.com.tecapp.personproject.utils.DeviceUtils
 import br.com.tecapp.personproject.utils.TransictionsUtils
 import kotlinx.android.synthetic.main.photo_list_screen.*
+import java.io.Serializable
 
 
 class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
@@ -32,7 +33,6 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.photo_list_screen)
 
         val viewBinding: PhotoListScreenBinding = DataBindingUtil.setContentView(this, R.layout.photo_list_screen)
         viewBinding.viewModel = photosViewModel
@@ -45,9 +45,9 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
     }
 
     override fun onBackPressed() {
-        TransictionsUtils.unRevealActivity(clContent, revealX, revealY, 0f, 400, onEnd = {
+        TransictionsUtils.unRevealActivity(clContent, revealX, revealY, 0f, 400) {
             clContent.visibility = View.INVISIBLE
-        })
+        }
         super.onBackPressed()
     }
 
@@ -57,16 +57,13 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
     }
 
     override fun openUrlAuthor(url: String) {
-        try {
-            val i = Intent("android.intent.action.MAIN")
-            i.component = ComponentName.unflattenFromString("com.android.chrome/com.android.chrome.Main")
-            i.addCategory("android.intent.category.LAUNCHER")
-            i.data = Uri.parse(url)
-            startActivity(i)
-        } catch (e: ActivityNotFoundException) {
-            val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            startActivity(i)
-        }
+        DeviceUtils.openBrowserUrl(this, url)
+    }
+
+    override fun openDetail(photoViewModel: PhotoViewModel) {
+        val intent = Intent(this, DetailPhotoActivity::class.java)
+        intent.putExtra(DetailPhotoActivity.PHOTO_ARGS, photoViewModel)
+        startActivity(intent)
     }
 
     private fun setupTransaction() {

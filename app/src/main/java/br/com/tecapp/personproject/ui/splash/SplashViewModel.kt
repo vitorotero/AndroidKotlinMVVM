@@ -1,4 +1,4 @@
-package br.com.tecapp.personproject.ui.viewmodel
+package br.com.tecapp.personproject.ui.splash
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

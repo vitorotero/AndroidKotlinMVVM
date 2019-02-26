@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">My Person Project</string>
+    <string name="btn_page_author_text">Acessar a página do autor</string>
+    <string name="btn_page_photo_text">Acessar o post da foto</string>
 </resources>

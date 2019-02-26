@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import br.com.tecapp.personproject.R
 import br.com.tecapp.personproject.databinding.SplashScreenBinding
 import br.com.tecapp.personproject.ui.photos.list.PhotoListActivity
-import br.com.tecapp.personproject.ui.viewmodel.SplashViewModel
 import kotlinx.android.synthetic.main.splash_screen.*
 
 class SplashActivity : AppCompatActivity() {
@@ -20,7 +19,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.splash_screen)
 
         val viewBinding: SplashScreenBinding = DataBindingUtil.setContentView(this, R.layout.splash_screen)
         viewBinding.viewModel = viewModel

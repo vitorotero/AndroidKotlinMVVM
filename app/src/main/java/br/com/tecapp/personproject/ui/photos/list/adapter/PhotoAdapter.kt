@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.tecapp.personproject.databinding.PhotoItemBinding
 import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
 
-class PhotoAdapter(var photos: List<PhotoViewModel>, val listenner: PhotoAdapterListenner) :
+class PhotoAdapter(var photos: List<PhotoViewModel>, private val listenner: PhotoAdapterListenner) :
     RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
@@ -31,6 +31,10 @@ class PhotoAdapter(var photos: List<PhotoViewModel>, val listenner: PhotoAdapter
 
             binding.tvAuthorUrl.setOnClickListener {
                 listenner.openUrlAuthor(photoViewModel.authorUrl)
+            }
+
+            binding.clContent.setOnClickListener {
+                listenner.openDetail(photoViewModel)
             }
 
             binding.executePendingBindings()

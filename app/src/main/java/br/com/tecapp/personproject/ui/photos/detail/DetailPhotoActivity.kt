@@ -2,8 +2,12 @@ package br.com.tecapp.personproject.ui.photos.detail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import br.com.tecapp.personproject.R
+import br.com.tecapp.personproject.databinding.DetailPhotoScreenBinding
 import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
+import br.com.tecapp.personproject.utils.DeviceUtils
 
 class DetailPhotoActivity : AppCompatActivity() {
 
@@ -11,16 +15,43 @@ class DetailPhotoActivity : AppCompatActivity() {
         const val PHOTO_ARGS = "photo_args"
     }
 
-    lateinit var photoViewModel: PhotoViewModel
-    val detailViewModel: DetailPhotoViewModel = DetailPhotoViewModel()
+    private lateinit var detailViewModel: DetailPhotoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.detail_photo_screen)
 
+        setupExtras()
+
+        val viewBinding: DetailPhotoScreenBinding = DataBindingUtil.setContentView(this, R.layout.detail_photo_screen)
+        viewBinding.viewModel = detailViewModel
+
+        setupBinding()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        detailViewModel.destroy()
+    }
+
+    private fun setupExtras() {
         if (intent.hasExtra(PHOTO_ARGS)) {
-
+            val photoViewModel: PhotoViewModel = intent.getSerializableExtra(PHOTO_ARGS) as PhotoViewModel
+            detailViewModel = DetailPhotoViewModel(photoViewModel)
+        } else {
+            DeviceUtils.showShortToas(this, "Algo deu errado")
+            finishAffinity()
         }
+    }
 
+    private fun setupBinding() {
+        detailViewModel.postPhotoUrl
+            .observe(this, Observer {
+                DeviceUtils.openBrowserUrl(this, it)
+            })
+
+        detailViewModel.authorUrl
+            .observe(this, Observer {
+                DeviceUtils.openBrowserUrl(this, it)
+            })
     }
 }

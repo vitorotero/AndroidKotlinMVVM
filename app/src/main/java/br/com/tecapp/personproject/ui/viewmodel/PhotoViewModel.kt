@@ -3,9 +3,10 @@ package br.com.tecapp.personproject.ui.viewmodel
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import br.com.tecapp.personproject.shared.model.Photo
+import java.io.Serializable
 
 
-class PhotoViewModel(private val photo: Photo) : BaseObservable() {
+class PhotoViewModel(private val photo: Photo) : BaseObservable(), Serializable {
 
     init {
     }

@@ -1,6 +1,7 @@
 package br.com.tecapp.personproject.shared.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Photo(
     @SerializedName("id") var id: Long,
@@ -10,4 +11,4 @@ data class Photo(
     @SerializedName("author_url") var authorUrl: String,
     @SerializedName("post_url") var postUrl: String
 
-)
+) : Serializable

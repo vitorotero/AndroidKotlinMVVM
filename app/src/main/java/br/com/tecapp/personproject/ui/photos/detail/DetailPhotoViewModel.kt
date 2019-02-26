@@ -1,10 +1,13 @@
 package br.com.tecapp.personproject.ui.photos.detail
 
 import androidx.databinding.BaseObservable
-import br.com.tecapp.personproject.shared.model.Photo
+import androidx.lifecycle.MutableLiveData
 import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
 
-class DetailPhotoViewModel() : BaseObservable() {
+class DetailPhotoViewModel(val photoViewModel: PhotoViewModel) : BaseObservable() {
+
+    var authorUrl = MutableLiveData<String>()
+    var postPhotoUrl = MutableLiveData<String>()
 
     init {
 
@@ -12,6 +15,14 @@ class DetailPhotoViewModel() : BaseObservable() {
 
     fun destroy() {
 
+    }
+
+    fun btnPageAuthorClick(authorUrl: String) {
+        this.authorUrl.value = authorUrl
+    }
+
+    fun btnPagePhotoClick(postPhotoUrl: String) {
+        this.postPhotoUrl.value = postPhotoUrl
     }
 
 }

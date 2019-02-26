@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="br.com.tecapp.personproject.ui.viewmodel.SplashViewModel" />
+            type="br.com.tecapp.personproject.ui.splash.SplashViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
