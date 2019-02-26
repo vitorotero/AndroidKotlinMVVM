@@ -23,7 +23,7 @@ class PhotoAdapter(var photos: List<PhotoViewModel>, private val listenner: Phot
         holder.bind(photos[position])
     }
 
-    class PhotoViewHolder(private val binding: PhotoItemBinding, private val listenner: PhotoAdapterListenner) :
+    inner class PhotoViewHolder(private val binding: PhotoItemBinding, private val listenner: PhotoAdapterListenner) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(photoViewModel: PhotoViewModel) {
