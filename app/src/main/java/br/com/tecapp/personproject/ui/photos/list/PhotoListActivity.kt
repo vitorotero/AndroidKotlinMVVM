@@ -12,6 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.tecapp.personproject.R
 import br.com.tecapp.personproject.databinding.PhotoListScreenBinding
+import br.com.tecapp.personproject.shared.api.Api
+import br.com.tecapp.personproject.shared.api.ApiPhoto
+import br.com.tecapp.personproject.shared.manager.PhotoManagerImp
 import br.com.tecapp.personproject.ui.photos.detail.DetailPhotoActivity
 import br.com.tecapp.personproject.ui.photos.list.adapter.PhotoAdapter
 import br.com.tecapp.personproject.ui.photos.list.adapter.PhotoAdapterListenner
@@ -27,12 +30,15 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
         const val EXTRA_CIRCULAR_REVEAL_Y = "EXTRA_CIRCULAR_REVEAL_Y"
     }
 
-    private val photosViewModel = PhotosViewModel()
+    private lateinit var photosViewModel: PhotosViewModel
     private var revealX: Int = 0
     private var revealY: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val apiPhoto: ApiPhoto = Api().retrofit.create(ApiPhoto::class.java)
+        photosViewModel = PhotosViewModel(PhotoManagerImp(apiPhoto))
 
         val viewBinding: PhotoListScreenBinding = DataBindingUtil.setContentView(this, R.layout.photo_list_screen)
         viewBinding.viewModel = photosViewModel
@@ -81,7 +87,7 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
     }
 
     private fun setupBinding() {
-        photosViewModel.photosViewModel
+        photosViewModel.photos
             .observe(this, Observer {
                 (rvPhotos.adapter as PhotoAdapter).photos = it
                 (rvPhotos.adapter as PhotoAdapter).notifyDataSetChanged()

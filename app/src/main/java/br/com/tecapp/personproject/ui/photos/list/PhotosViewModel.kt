@@ -1,38 +1,36 @@
 package br.com.tecapp.personproject.ui.photos.list
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.tecapp.personproject.shared.manager.PhotoManager
-import br.com.tecapp.personproject.shared.manager.PhotoManagerImp
 import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
-import br.com.tecapp.personproject.utils.SchedulerProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class PhotosViewModel : ViewModel() {
+class PhotosViewModel(private val photoManager: PhotoManager) : ViewModel() {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
-    private val photoManager: PhotoManager = PhotoManagerImp()
 
-    private val _photosViewModel = MutableLiveData<List<PhotoViewModel>>().apply { value = emptyList() }
-    val photosViewModel: LiveData<List<PhotoViewModel>>
-        get() = _photosViewModel
+    var photos: MutableLiveData<List<PhotoViewModel>> = MutableLiveData()
+    var error: MutableLiveData<String> = MutableLiveData()
 
     fun destroy() {
         disposables.clear()
     }
 
     fun listPhotos() {
-        disposables.add(photoManager.listPhotos()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { photos ->
-                _photosViewModel.value = photos.map {
-                    PhotoViewModel(it)
-                }
-            })
+        disposables.add(
+            photoManager.listPhotos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { photos -> this.photos.value = photos },
+                    { t ->
+                        t.printStackTrace()
+                        error.value = "Ocorreu um erro"
+                    })
+        )
     }
 
 }

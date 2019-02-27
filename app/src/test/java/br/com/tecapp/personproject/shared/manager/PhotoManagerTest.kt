@@ -16,7 +16,7 @@ class PhotoManagerTest {
 
     @Before
     fun setup() {
-        photoManager = PhotoManagerImp()
+        photoManager = PhotoManagerImp(apiPhoto)
     }
 
     @Test

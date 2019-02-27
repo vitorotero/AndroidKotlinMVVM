@@ -1,10 +1,10 @@
 package br.com.tecapp.personproject.shared.manager
 
-import br.com.tecapp.personproject.shared.model.Photo
+import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
 import io.reactivex.Observable
 
 interface PhotoManager {
 
-    fun listPhotos(): Observable<List<Photo>>
+    fun listPhotos(): Observable<List<PhotoViewModel>>
 
 }

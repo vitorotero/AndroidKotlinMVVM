@@ -1,19 +1,16 @@
 package br.com.tecapp.personproject.shared.manager
 
-import br.com.tecapp.personproject.shared.api.Api
 import br.com.tecapp.personproject.shared.api.ApiPhoto
-import br.com.tecapp.personproject.shared.model.Photo
+import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
 import io.reactivex.Observable
 
-class PhotoManagerImp : Api(), PhotoManager {
+class PhotoManagerImp(private var apiPhoto: ApiPhoto) : PhotoManager {
 
-    private val apiPhoto: ApiPhoto = retrofit.create(ApiPhoto::class.java)
-
-    init {
-    }
-
-    override fun listPhotos(): Observable<List<Photo>> {
+    override fun listPhotos(): Observable<List<PhotoViewModel>> {
         return apiPhoto.listPhotos()
+            .map { photos ->
+                photos.map { PhotoViewModel(it) }
+            }
     }
-
+    
 }
