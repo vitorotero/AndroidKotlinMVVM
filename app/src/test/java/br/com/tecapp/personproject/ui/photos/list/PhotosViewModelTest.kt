@@ -63,7 +63,7 @@ class PhotosViewModelTest {
 
     @Test
     fun test_DataOnApi_returnsError() {
-        val result = NullPointerException()
+        val result = Throwable()
 
         whenever(photoManager.listPhotos()).thenReturn(Observable.error(result))
 
