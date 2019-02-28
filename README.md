@@ -1,9 +1,4 @@
-# Exemplo de arquitetura MVVM em Kotlin
-
-Branchs:
-- master: Utilizando a versão com RxJava
-- version_rx - Finalizada
-- version_coroutines - Em criação
+# Exemplo de arquitetura MVVM em Kotlin, Livedata, DataBinding e RxJava
 
 Testes unitarios:
 - ViewModel
