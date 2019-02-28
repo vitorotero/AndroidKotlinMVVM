@@ -18,7 +18,7 @@ class PhotoManagerTest {
 
     @Before
     fun setup() {
-        apiPhoto = mock() //Api().retrofit.create(ApiPhoto::class.java)
+        apiPhoto = mock()
         photoManager = PhotoManagerImp(apiPhoto)
     }
 
