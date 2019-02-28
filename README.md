@@ -5,7 +5,7 @@ Branchs:
 - version_rx - Finalizada
 - version_coroutines - Em criação
 
-Todas as branchs possuem testes unitarios utilizando mockito e JUnit.
+Testes unitarios com mockito e JUnit.
 - Testes realizados em ViewModel e Manager
 
 Bibliotecas utilizadas:
