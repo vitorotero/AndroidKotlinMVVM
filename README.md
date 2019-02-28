@@ -1,5 +1,12 @@
 # Exemplo de arquitetura MVVM em Kotlin
 
 Branchs:
- - version_rx - Finalizada
-  - version_coroutines - Em criação
+- master: Utilizando a versão com RxJava
+- version_rx - Finalizada
+- version_coroutines - Em criação
+
+Testes unitarios com mockito e JUnit.
+- Testes realizados em ViewModel e Manager
+
+Bibliotecas utilizadas:
+- Mockito
