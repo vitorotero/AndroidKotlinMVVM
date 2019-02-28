@@ -1,4 +1,4 @@
-# Exemplo de arquitetura MVVM em Kotlin, Livedata, DataBinding e RxJava
+# Exemplo de arquitetura MVVM em Kotlin
 
 Testes unitarios:
 - ViewModel
