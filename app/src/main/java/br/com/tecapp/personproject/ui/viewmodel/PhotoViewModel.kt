@@ -8,7 +8,8 @@ import java.io.Serializable
 
 class PhotoViewModel(private val photo: Photo) : BaseObservable(), Serializable {
 
-    init {
+    companion object {
+        const val API_URL_PHOTO = "https://picsum.photos/1920/1080?image="
     }
 
     val fileName: String
@@ -33,6 +34,6 @@ class PhotoViewModel(private val photo: Photo) : BaseObservable(), Serializable 
 
     val photoUrl: String
         @Bindable get() {
-            return "https://picsum.photos/1920/1080?image=" + photo.id
+            return API_URL_PHOTO + photo.id
         }
 }

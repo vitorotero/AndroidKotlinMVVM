@@ -11,12 +11,15 @@ import io.reactivex.Observable
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.mockito.Mock
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class PhotosViewModelTest {
 
@@ -37,6 +40,11 @@ class PhotosViewModelTest {
         photoManager = mock()
         apiPhoto = mock()
         viewModel = PhotosViewModel(photoManager)
+    }
+
+    @After
+    fun after() {
+        viewModel.destroy()
     }
 
     @Test

@@ -32,9 +32,9 @@ class DetailPhotoViewModelTest {
 
     @Test
     fun test_onClickPostUrl() {
-        viewModel.btnPageAuthorClick(photoViewModel.postUrl)
+        viewModel.btnPagePhotoClick(photoViewModel.postUrl)
 
-        assertEquals(viewModel.authorUrl.value, photoViewModel.postUrl)
+        assertEquals(viewModel.postPhotoUrl.value, photoViewModel.postUrl)
     }
 
 }
