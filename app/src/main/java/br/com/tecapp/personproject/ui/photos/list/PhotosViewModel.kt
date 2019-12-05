@@ -4,33 +4,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.tecapp.personproject.shared.manager.PhotoManager
 import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class PhotosViewModel(private val photoManager: PhotoManager) : ViewModel() {
+class PhotosViewModel(private val photoManager: PhotoManager) : ViewModel(), CoroutineScope {
 
-    private val disposables: CompositeDisposable = CompositeDisposable()
+    override val coroutineContext = Main
+    private var jobs = ArrayList<Job>()
 
-    var photos: MutableLiveData<List<PhotoViewModel>> = MutableLiveData()
-    var error: MutableLiveData<String> = MutableLiveData()
+    val photos: MutableLiveData<List<PhotoViewModel>> = MutableLiveData()
+    val error: MutableLiveData<String> = MutableLiveData()
+
+    override fun onCleared() {
+        super.onCleared()
+        jobs.forEach { if (!it.isCancelled) it.cancel() }
+    }
 
     fun destroy() {
-        disposables.clear()
+        super.onCleared()
     }
 
     fun listPhotos() {
-        disposables.add(
-            photoManager.listPhotos()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { photos -> this.photos.value = photos },
-                    { t ->
-                        t.printStackTrace()
-                        error.value = "Ocorreu um erro"
-                    })
-        )
+        jobs.add(launch {
+            try {
+                photos.value = photoManager.listPhotos().await()
+            } catch (t: Throwable) {
+                photos.value = emptyList()
+                error.value = "Ocorreu um erro"
+            }
+        })
     }
 
 }

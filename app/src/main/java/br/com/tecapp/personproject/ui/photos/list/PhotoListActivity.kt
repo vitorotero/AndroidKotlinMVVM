@@ -22,6 +22,7 @@ import br.com.tecapp.personproject.ui.viewmodel.PhotoViewModel
 import br.com.tecapp.personproject.utils.DeviceUtils
 import br.com.tecapp.personproject.utils.TransictionsUtils
 import kotlinx.android.synthetic.main.photo_list_screen.*
+import kotlin.math.max
 
 class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
 
@@ -40,7 +41,8 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
         val apiPhoto: ApiPhoto = Api().retrofit.create(ApiPhoto::class.java)
         photosViewModel = PhotosViewModel(PhotoManagerImp(apiPhoto))
 
-        val viewBinding: PhotoListScreenBinding = DataBindingUtil.setContentView(this, R.layout.photo_list_screen)
+        val viewBinding: PhotoListScreenBinding =
+            DataBindingUtil.setContentView(this, R.layout.photo_list_screen)
         viewBinding.viewModel = photosViewModel
         viewBinding.rvPhotos.adapter = PhotoAdapter(emptyList(), this)
         viewBinding.rvPhotos.layoutManager = LinearLayoutManager(this)
@@ -63,7 +65,9 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
         val intent = Intent(this, DetailPhotoActivity::class.java)
         intent.putExtra(DetailPhotoActivity.PHOTO_ARGS, photoViewModel)
         val options = ActivityOptions.makeSceneTransitionAnimation(
-            this, Pair.create(imageView, "photoTransition"), Pair.create(textView, "nameAuthorTransition")
+            this,
+            Pair.create(imageView, "photoTransition"),
+            Pair.create(textView, "nameAuthorTransition")
         )
         startActivity(intent, options.toBundle())
     }
@@ -75,9 +79,10 @@ class PhotoListActivity : AppCompatActivity(), PhotoAdapterListenner {
 
             val viewTreeObserver = clContent.viewTreeObserver
             if (viewTreeObserver.isAlive) {
-                viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                viewTreeObserver.addOnGlobalLayoutListener(object :
+                    ViewTreeObserver.OnGlobalLayoutListener {
                     override fun onGlobalLayout() {
-                        val radius = (Math.max(clContent.width, clContent.height) * 1.1).toFloat()
+                        val radius = (max(clContent.width, clContent.height) * 1.1).toFloat()
                         TransictionsUtils.revealActivity(clContent, revealX, revealY, radius, 400)
                         clContent.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     }
