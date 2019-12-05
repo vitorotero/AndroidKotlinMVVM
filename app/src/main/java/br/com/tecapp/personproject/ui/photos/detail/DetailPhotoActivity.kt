@@ -32,7 +32,6 @@ class DetailPhotoActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        detailViewModel.destroy()
     }
 
     private fun setupExtras() {

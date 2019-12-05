@@ -8,15 +8,7 @@ class DetailPhotoViewModel(val photoViewModel: PhotoViewModel) : BaseObservable(
 
     var authorUrl = MutableLiveData<String>()
     var postPhotoUrl = MutableLiveData<String>()
-
-    init {
-
-    }
-
-    fun destroy() {
-
-    }
-
+    
     fun btnPageAuthorClick(authorUrl: String) {
         this.authorUrl.value = authorUrl
     }
